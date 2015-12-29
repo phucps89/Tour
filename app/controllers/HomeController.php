@@ -15,9 +15,13 @@ class HomeController extends BaseController {
 	|
 	*/
 
-	public function showWelcome()
+	public function index()
 	{
-		return View::make('hello');
+		return View::make('home.index');
 	}
 
+	public function main(){
+		$defaultQuestions = Question::whereIn('id', [1,2,3,4])->get();
+		return View::make('home.main', compact('defaultQuestions'));
+	}
 }
