@@ -26,7 +26,7 @@ return array(
 	|
 	*/
 
-	'default' => 'mysql',
+	'default' => 'main',
 
 	/*
 	|--------------------------------------------------------------------------
@@ -54,14 +54,37 @@ return array(
 
 		'mysql' => array(
 			'driver'    => 'mysql',
+			'read'  => [
+				'host'      => 'localhost',
+				'database'  => 'test1',
+				'username'  => 'root',
+				'password'  => '',
+				'charset'   => 'utf8',
+				'collation' => 'utf8_unicode_ci',
+				'prefix'    => '',
+			],
+			'write' => [
+				'driver'    => 'mysql',
+				'host'      => 'localhost',
+				'database'  => 'tour',
+				'username'  => 'root',
+				'password'  => '',
+				'charset'   => 'utf8',
+				'collation' => 'utf8_unicode_ci',
+				'prefix'    => '',
+			],
+		),
+
+		'main' => [
+			'driver'    => 'mysql',
 			'host'      => 'localhost',
-			'database'  => 'test1',
+			'database'  => 'tour',
 			'username'  => 'root',
 			'password'  => '',
 			'charset'   => 'utf8',
 			'collation' => 'utf8_unicode_ci',
 			'prefix'    => '',
-		),
+		],
 
 		'pgsql' => array(
 			'driver'   => 'pgsql',

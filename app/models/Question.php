@@ -6,5 +6,5 @@
  * Time: 9:59 PM
  */
 class Question extends \Illuminate\Database\Eloquent\Model{
-    protected $table = 'question';
+
 }

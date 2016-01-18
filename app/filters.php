@@ -46,6 +46,12 @@ Route::filter('auth', function()
 			return Redirect::guest('login');
 		}
 	}
+	$user = Auth::user();
+	View::share('user', $user);
+	App::singleton('user', function($app) use ($user)
+	{
+		return $user;
+	});
 });
 
 

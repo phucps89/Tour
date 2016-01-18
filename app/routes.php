@@ -11,12 +11,36 @@
 |
 */
 
-Route::get('/', [
-	'as' => 'home',
-	'uses' => 'HomeController@index'
+Route::match(['GET', 'POST'], 'login', [
+	'as' => 'login',
+	'uses' => 'HomeController@login'
 ]);
 
-Route::get('/main', [
-	'as' => 'main',
-	'uses' => 'HomeController@main'
+Route::match(['POST'], 'register', [
+	'as' => 'register',
+	'uses' => 'HomeController@register'
 ]);
+
+Route::match(['GET'], 'logout', [
+		'as' => 'logout',
+		'uses' => function(){
+			Auth::logout();
+			return Redirect::route('home');
+		}
+]);
+
+Route::group([
+	'before' => 'auth'
+], function(){
+	Route::get('/', [
+			'as' => 'home',
+			'uses' => 'HomeController@index'
+	]);
+
+	Route::get('/main', [
+			'as' => 'main',
+			'uses' => 'HomeController@main'
+	]);
+});
+
+
