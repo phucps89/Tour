@@ -19,10 +19,7 @@
     <link rel="stylesheet" href="{{asset('dashboard/dist/css/skins/_all-skins.min.css')}}">
     <!-- iCheck -->
     <link rel="stylesheet" href="{{asset('dashboard/plugins/iCheck/flat/blue.css')}}">
-    <!-- Morris chart -->
-    <link rel="stylesheet" href="{{asset('dashboard/plugins/morris/morris.css')}}">
-    <!-- jvectormap -->
-    <link rel="stylesheet" href="{{asset('dashboard/plugins/jvectormap/jquery-jvectormap-1.2.2.css')}}">
+
     <!-- Date Picker -->
     <link rel="stylesheet" href="{{asset('dashboard/plugins/datepicker/datepicker3.css')}}">
     <!-- Daterange picker -->
@@ -36,6 +33,8 @@
     <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
     <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
     <![endif]-->
+
+    @yield('resource')
 </head>
 <body class="hold-transition skin-blue sidebar-mini fixed">
 <div class="wrapper">
@@ -316,38 +315,14 @@
             <!-- sidebar menu: : style can be found in sidebar.less -->
             <ul class="sidebar-menu">
                 <li class="header">MAIN NAVIGATION</li>
-                <li class="active treeview">
-                    <a href="#">
-                        <i class="fa fa-dashboard"></i> <span>Dashboard</span> <i class="fa fa-angle-left pull-right"></i>
-                    </a>
-                    <ul class="treeview-menu">
-                        <li class="active"><a href="index.html"><i class="fa fa-circle-o"></i> Dashboard v1</a></li>
-                        <li><a href="index2.html"><i class="fa fa-circle-o"></i> Dashboard v2</a></li>
-                    </ul>
-                </li>
                 <li class="treeview">
                     <a href="#">
-                        <i class="fa fa-files-o"></i>
-                        <span>Layout Options</span>
-                        <span class="label label-primary pull-right">4</span>
+                        <i class="fa fa-book"></i> <span>Advice</span> <i class="fa fa-angle-left pull-right"></i>
                     </a>
                     <ul class="treeview-menu">
-                        <li><a href="pages/layout/top-nav.html"><i class="fa fa-circle-o"></i> Top Navigation</a></li>
-                        <li><a href="pages/layout/boxed.html"><i class="fa fa-circle-o"></i> Boxed</a></li>
-                        <li><a href="pages/layout/fixed.html"><i class="fa fa-circle-o"></i> Fixed</a></li>
-                        <li><a href="pages/layout/collapsed-sidebar.html"><i class="fa fa-circle-o"></i> Collapsed Sidebar</a></li>
+                        <li><a href="{{route('advice')}}"><i class="fa fa-circle-o"></i> List</a></li>
                     </ul>
                 </li>
-                <li>
-                    <a href="pages/widgets.html">
-                        <i class="fa fa-th"></i> <span>Widgets</span> <small class="label pull-right bg-green">new</small>
-                    </a>
-                </li>
-                <li><a href="documentation/index.html"><i class="fa fa-book"></i> <span>Documentation</span></a></li>
-                <li class="header">LABELS</li>
-                <li><a href="#"><i class="fa fa-circle-o text-red"></i> <span>Important</span></a></li>
-                <li><a href="#"><i class="fa fa-circle-o text-yellow"></i> <span>Warning</span></a></li>
-                <li><a href="#"><i class="fa fa-circle-o text-aqua"></i> <span>Information</span></a></li>
             </ul>
         </section>
         <!-- /.sidebar -->
@@ -358,12 +333,11 @@
         <!-- Content Header (Page header) -->
         <section class="content-header">
             <h1>
-                Dashboard
-                <small>Control panel</small>
+                @yield('titleSection')
             </h1>
             <ol class="breadcrumb">
-                <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
-                <li class="active">Dashboard</li>
+                <li><a href="{{route('home')}}"><i class="fa fa-dashboard"></i> Home</a></li>
+                @yield('breadcrumb')
             </ol>
         </section>
 
@@ -568,5 +542,6 @@
 <script src="{{asset('dashboard/plugins/fastclick/fastclick.min.js')}}"></script>
 <!-- AdminLTE App -->
 <script src="{{asset('dashboard/dist/js/app.min.js')}}"></script>
+@yield('script')
 </body>
 </html>
