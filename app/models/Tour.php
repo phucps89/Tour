@@ -6,6 +6,6 @@
  * Time: 10:11 AM
  */
 
-class Tour extends \Illuminate\Database\Eloquent\Model{
+class Tour extends AbstractModel{
 
 }

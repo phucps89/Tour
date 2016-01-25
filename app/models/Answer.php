@@ -6,6 +6,6 @@
  * Time: 9:41 AM
  */
 
-class Answer extends \Illuminate\Database\Eloquent\Model{
+class Answer extends AbstractModel{
 
 }

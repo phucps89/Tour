@@ -18,4 +18,4 @@ Artisan::add(new QuestionAnswerDB);
 Artisan::add(new LocationDB);
 Artisan::add(new TourDB);
 Artisan::add(new FactorDB);
-
+Artisan::add(new InteractionDB);

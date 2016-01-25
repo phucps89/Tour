@@ -6,7 +6,7 @@
  * Time: 9:48 AM
  */
 
-class QuestionType extends \Illuminate\Database\Eloquent\Model{
+class QuestionType extends AbstractModel{
     protected $table = 'question_types';
 
     const TYPE_YES_NO = 1;

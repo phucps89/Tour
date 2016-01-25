@@ -6,6 +6,6 @@
  * Time: 4:42 PM
  */
 
-class Factor extends \Illuminate\Database\Eloquent\Model{
+class Factor extends AbstractModel{
 
 }

@@ -46,14 +46,19 @@ Route::group([
         'prefix' => 'advice'
     ], function () {
 
-        Route::get('/', [
+        Route::get('', [
             'as'   => 'advice',
             'uses' => 'AdviceController@index'
         ]);
 
-        Route::get('/add', [
-            'as'   => 'advice.add',
-            'uses' => 'AdviceController@add'
+        Route::post('function', [
+            'as'   => 'advice.function',
+            'uses' => 'AdviceController@adviceFunction'
+        ]);
+
+        Route::get('view/{id}/{idQuestion?}', [
+            'as' => 'advice.view',
+            'uses' => 'AdviceController@view'
         ]);
 
     });

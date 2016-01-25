@@ -6,6 +6,10 @@
  * Time: 10:05 AM
  */
 
-class QuestionAnswer extends \Illuminate\Database\Eloquent\Model{
+class QuestionAnswer extends AbstractModel{
     protected $table = 'question_answer';
+
+    function detail(){
+        return $this->belongsTo('Answer', 'id_answer');
+    }
 }

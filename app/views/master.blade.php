@@ -27,6 +27,8 @@
     <!-- bootstrap wysihtml5 - text editor -->
     <link rel="stylesheet" href="{{asset('dashboard/plugins/bootstrap-wysihtml5/bootstrap3-wysihtml5.min.css')}}">
 
+    <link rel="stylesheet" href="{{asset('assets/css/style.css')}}">
+
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
     <!--[if lt IE 9]>
@@ -315,14 +317,24 @@
             <!-- sidebar menu: : style can be found in sidebar.less -->
             <ul class="sidebar-menu">
                 <li class="header">MAIN NAVIGATION</li>
-                <li class="treeview">
+                <li class="treeview @if(in_array(Route::currentRouteName(), ['advice'])) active @endif">
                     <a href="#">
                         <i class="fa fa-book"></i> <span>Advice</span> <i class="fa fa-angle-left pull-right"></i>
                     </a>
                     <ul class="treeview-menu">
-                        <li><a href="{{route('advice')}}"><i class="fa fa-circle-o"></i> List</a></li>
+                        <li @if(Route::currentRouteName() == 'advice') class="active" @endif><a href="{{route('advice')}}"><i class="fa fa-circle-o"></i> List</a></li>
                     </ul>
                 </li>
+                @if(isset($listHistory))
+                    <li class="treeview active">
+                        <a href="#">
+                            <i class="fa fa-book"></i> <span>History</span> <i class="fa fa-angle-left pull-right"></i>
+                        </a>
+                        <ul class="treeview-menu">
+                            <li @if($select == 'root') class="active" @endif><a href="{{route('advice.view', ['id' => $id])}}"><i class="fa fa-circle-o"></i> Factor questions</a></li>
+                        </ul>
+                    </li>
+                @endif
             </ul>
         </section>
         <!-- /.sidebar -->
