@@ -33,27 +33,36 @@
                 </div>
             </div>
             @endforeach
-        @elseif($select == 'next')
-            <div class="col-xs-12">
-                <p style="font-weight: bold">{{$question->name}}</p>
-                <div class="form-group">
-                    @foreach($question->answers as $a)
-                        <?php $answer = $a->detail ?>
-                        <div class="radio">
-                            <label>
-                                <input name="question[{{$question->id}}][]" type="checkbox" value="{{$answer->id}}">
-                                {{$answer->name}}
-                            </label>
-                        </div>
-                    @endforeach
+        @elseif($select == 'next' || $select = 'history')
+            @if($question)
+                <div class="col-xs-12">
+                    <p style="font-weight: bold">{{$question->name}}</p>
+                    <div class="form-group">
+                        @foreach($question->bestAnswer([$question->id]) as $answer)
+                            <div class="radio">
+                                <label>
+                                    <input name="question[{{$question->id}}][]" type="checkbox" value="{{$answer->id}}">
+                                    {{$answer->name}}
+                                </label>
+                            </div>
+                        @endforeach
+                    </div>
                 </div>
-            </div>
+            @else
+                <div class="col-xs-12">
+                    <p>You answered all questions.</p>
+                </div>
+            @endif
         @endif
     </div>
     <div class="row">
         <div class="col-xs-12">
             <hr>
+            @if($question)
             <button type="submit" class="btn btn-primary">Submit</button>
+            @endif
+            &nbsp;
+            <a href="{{route('tour.view', ['idAdvice' => $id])}}" class="btn btn-success">View tour</a>
             <input type="hidden" name="function" value="advice">
             <input type="hidden" name="select" value="{{$select}}">
             <input type="hidden" name="advice" value="{{$id}}">

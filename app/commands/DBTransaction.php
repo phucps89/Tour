@@ -10,14 +10,14 @@ use Illuminate\Console\Command;
 use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Input\InputArgument;
 
-class TourDB extends Command {
+class DBTransaction extends Command {
 
     /**
      * The console command name.
      *
      * @var string
      */
-    protected $name = 'command:tour-db';
+    protected $name = 'command:dbt';
 
     /**
      * The console command description.
@@ -43,24 +43,26 @@ class TourDB extends Command {
      */
     public function fire()
     {
-        ini_set('max_execution_time', 0);
-        $data = DB::select('select * from tour');
-        $insert = [];
-        foreach ($data as $d) {
-            $insert[] = [
-                'id' => $d->id,
-                'code' => $d->id_tour,
-                'name' => $d->name,
-                'description' => $d->description,
-                'day_duration' => $d->day_duration,
-                'duration' => $d->duration,
-                'start_date' => $d->start_date,
-                'start_loc' => $d->starting_gate,
-                'adult_price' => $d->adult_price,
-                'children_price' => $d->children_price,
-            ];
+        $line = $this->argument('line');
+        $fileInput = $line.'.inp.txt';
+        $r = 1;
+        $record = [];
+        while($r <= 30){
+            $record[] = $r++;
         }
-        Tour::insert($insert);
+        while($line){
+            $num = rand(5, 15);
+            $list = [];
+            $temp = $record;
+            shuffle($temp);
+            while($num){
+                $k = array_rand($temp);
+                unset($temp[$k]);
+                $num--;
+            }
+            file_put_contents(public_path('db/'.$fileInput), implode(' ', $temp) . "\n", FILE_APPEND);
+            $line--;
+        }
     }
 
     /**
@@ -70,7 +72,9 @@ class TourDB extends Command {
      */
     protected function getArguments()
     {
-        return array();
+        return array(
+            array('line', InputArgument::REQUIRED, 'line', null)
+        );
     }
 
     /**

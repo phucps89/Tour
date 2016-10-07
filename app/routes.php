@@ -61,6 +61,11 @@ Route::group([
             'uses' => 'AdviceController@view'
         ]);
 
+        Route::get('tour/{idAdvice}', [
+            'as' => 'tour.view',
+            'uses' => 'AdviceController@viewTours'
+        ]);
+
     });
 });
 

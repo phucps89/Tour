@@ -10,14 +10,14 @@ use Illuminate\Console\Command;
 use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Input\InputArgument;
 
-class TourDB extends Command {
+class AnswerMap extends Command {
 
     /**
      * The console command name.
      *
      * @var string
      */
-    protected $name = 'command:tour-db';
+    protected $name = 'command:answer-map';
 
     /**
      * The console command description.
@@ -44,23 +44,25 @@ class TourDB extends Command {
     public function fire()
     {
         ini_set('max_execution_time', 0);
-        $data = DB::select('select * from tour');
-        $insert = [];
-        foreach ($data as $d) {
-            $insert[] = [
-                'id' => $d->id,
-                'code' => $d->id_tour,
-                'name' => $d->name,
-                'description' => $d->description,
-                'day_duration' => $d->day_duration,
-                'duration' => $d->duration,
-                'start_date' => $d->start_date,
-                'start_loc' => $d->starting_gate,
-                'adult_price' => $d->adult_price,
-                'children_price' => $d->children_price,
-            ];
+        $answers = Answer::whereNotNull('id_attribute')->get();
+        Answer::whereRaw('1=1')->update([
+            'id_attr_map' => null
+        ]);
+        $oldAnswers =  DB::connection('old')->select('select * from option_ans where attribute_id is not null');
+        foreach ($answers as $answer) {
+            foreach ($oldAnswers as $oldAnswer) {
+                if(strcmp($answer->name, $oldAnswer->opt_content) == 0){
+                    $data = DB::connection('old')->select('select * from attribute where id = ' . $oldAnswer->attribute_id);
+                    $answer->id_attr_map = $data[0]->attribute;
+                    $answer->save();
+                    echo $answer->name."\n";
+                    echo $oldAnswer->opt_content."\n";
+                    echo $answer->id_attr_map."\n";
+                    echo "---------\n";
+                    break;
+                }
+            }
         }
-        Tour::insert($insert);
     }
 
     /**

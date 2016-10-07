@@ -332,6 +332,9 @@
                         </a>
                         <ul class="treeview-menu">
                             <li @if($select == 'root') class="active" @endif><a href="{{route('advice.view', ['id' => $id])}}"><i class="fa fa-circle-o"></i> Factor questions</a></li>
+                            @foreach($listHistory as $q)
+                            <li><a href="{{route('advice.view', ['id' => $id, 'idQuestion' => $q->id])}}"><i class="fa fa-circle-o"></i> {{$q->name}}</a></li>
+                            @endforeach
                         </ul>
                     </li>
                 @endif

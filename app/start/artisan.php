@@ -19,3 +19,6 @@ Artisan::add(new LocationDB);
 Artisan::add(new TourDB);
 Artisan::add(new FactorDB);
 Artisan::add(new InteractionDB);
+Artisan::add(new TourScoreDB);
+Artisan::add(new DBTransaction());
+Artisan::add(new AnswerMap());

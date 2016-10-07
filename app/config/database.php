@@ -74,7 +74,16 @@ return array(
 				'prefix'    => '',
 			],
 		),
-
+		'old'  => [
+			'driver'    => 'mysql',
+			'host'      => 'localhost',
+			'database'  => 'test1',
+			'username'  => 'root',
+			'password'  => '',
+			'charset'   => 'utf8',
+			'collation' => 'utf8_unicode_ci',
+			'prefix'    => '',
+		],
 		'main' => [
 			'driver'    => 'mysql',
 			'host'      => 'localhost',

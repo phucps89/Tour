@@ -17,6 +17,44 @@ class HomeController extends BaseController {
 
 	public function index()
 	{
+		$minSupp  = 50;                  //minimal support
+		$minConf  = 90;                 //minimal confidence
+		$type     = Apriori::SRC_PLAIN; //data type
+		$recomFor = 'beer';             //recommendation for
+		$dataFile = 'data.json.gz';     //file for saving of state
+//transactions
+		$file = fopen(public_path('db/1000.inp.txt'), 'r');
+		$data = [];
+		while(!feof($file)){
+			$line = fgets($file);
+			if($line) {
+				$db = explode(' ',$line);
+				if($db){
+					$data[] = implode(',', $db);
+				}
+			}
+		}
+
+//		$data = array(
+//			'bread, milk',
+//			'sugar, milk, beer',
+//			'bread',
+//			'bread, milk, beer',
+//			'sugar, milk, beer'
+//		); //id(items)
+		try {
+			$start = microtime(true);
+			$apri = new Apriori($type, $data, $minSupp, $minConf);
+			$apri
+				->solve()
+				->generateRules()
+				->displayRules();                 //save state with rules
+			$time_elapsed_secs = microtime(true) - $start;
+			echo 'Time: '.$time_elapsed_secs;
+		} catch (Exception $exc) {
+			echo $exc->getMessage();
+		}
+
 		return View::make('home.index');
 	}
 

@@ -8,4 +8,7 @@
 
 class Tour extends AbstractModel{
 
+    function location(){
+        return $this->belongsTo('Location', 'start_loc', 'id');
+    }
 }
