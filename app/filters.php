@@ -94,3 +94,20 @@ Route::filter('csrf', function()
 		throw new Illuminate\Session\TokenMismatchException;
 	}
 });
+
+Route::filter('jwt', function()
+{
+	// this will set the token on the object
+
+	// and you can continue to chain methods
+	try{
+		JWTAuth::parseToken();
+		$user = JWTAuth::parseToken()->authenticate();
+	}
+	catch(Exception $e){
+		return Response::json([
+			'msg' => 'Error',
+			'logout' => true
+		], 401);
+	}
+});

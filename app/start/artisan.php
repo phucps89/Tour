@@ -22,3 +22,4 @@ Artisan::add(new InteractionDB);
 Artisan::add(new TourScoreDB);
 Artisan::add(new DBTransaction());
 Artisan::add(new AnswerMap());
+Artisan::add(new UpdateInteraction());

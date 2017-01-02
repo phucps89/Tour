@@ -375,6 +375,10 @@ class AdviceController extends BaseController
         if ($listAnsOfNotFactor->count() > 0) {
             $arrAnsPoint = $this->scoreAnswer($listAnsOfNotFactor->lists('id_answer'));
             $arrAnsPoint = $this->interaction($arrAnsPoint);
+            echo '<pre>';
+            print_r($arrAnsPoint);
+            echo '</pre>';
+            exit;
             $lisIDAvailable = [];
             foreach ($arrAnsPoint as $idAns=>$item) {
                 if($item['point']) {
@@ -395,7 +399,7 @@ class AdviceController extends BaseController
                     file_put_contents($fileInput, implode(' ', $list) . "\n", FILE_APPEND);
                 }
             }
-            $cmd = 'java -jar spmf.jar run FPGrowth_itemsets '.$fileInput.' '.$fileOutput.' 50%';
+            $cmd = 'java -jar public/spmf.jar run FPGrowth_itemsets '.$fileInput.' '.$fileOutput.' 50%';
             exec($cmd);
 
             $file = fopen($fileOutput, 'r');

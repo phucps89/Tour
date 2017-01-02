@@ -66,7 +66,31 @@ Route::group([
             'uses' => 'AdviceController@viewTours'
         ]);
 
+        Route::get('/ontology', [
+            'as' => 'ontology',
+            'uses' => 'OntologyController@index'
+        ]);
+
     });
 });
 
+Route::group([
+    'prefix' => 'api'
+], function () {
+    Route::group([
+        'before' => 'jwt'
+    ], function () {
+        Route::get('/', [
+            'as' => 'api.index',
+            'uses' => 'ApiController@index'
+        ]);
+    });
+
+
+
+    Route::post('/login', [
+        'as' => 'api.login',
+        'uses' => 'ApiController@login'
+    ]);
+});
 
